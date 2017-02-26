@@ -3,11 +3,6 @@ build/
 out/
 .idea/
 
-# Avoid build artifacts
-*.jar
-*.class
-
-
 # Linux ignores
 
 *~
