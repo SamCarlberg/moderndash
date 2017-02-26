@@ -19,11 +19,11 @@ public class IPResolverTest {
         assertFalse("Resolved impossibly quickly", resolver.canResolve("example.com", 0, TimeUnit.NANOSECONDS));
     }
 
-    @Test(timeout = 5)
+    @Test
     public void testLocalhost() {
         // should only take ~50us max, but best to be safe
         assertTrue("Could not resolve 'localhost'",
-                   resolver.canResolve("localhost", 5, TimeUnit.MILLISECONDS));
+                   resolver.canResolve("localhost", 25, TimeUnit.MILLISECONDS));
     }
 
     @Test(timeout = 500)

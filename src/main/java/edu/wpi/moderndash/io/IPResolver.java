@@ -69,7 +69,8 @@ public class IPResolver {
             return false;
         }
         return IOUtils.readLines(p.getInputStream(), "UTF-8").stream()
-                .anyMatch(line -> line.contains("ttl"));
+                .map(String::toLowerCase)
+                .anyMatch(line -> line.matches(".*(ttl|TTL|reply from).*"));
     }
 
 }
