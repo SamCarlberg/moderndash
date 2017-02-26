@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<StackPane minHeight="50" minWidth="50"
+           styleClass="connection-indicator"
+           xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <fx:define>
+        <String fx:id="connected_text" fx:value="Connected"/>
+        <String fx:id="disconnected_text" fx:value="No connection"/>
+    </fx:define>
+    <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+    </padding>
+    <Label text="${disconnected_text}" styleClass="connection-indicator-text"/>
+</StackPane>

@@ -1,0 +1,22 @@
+@import "/edu/wpi/moderndash/main.css";
+
+.value-bar {
+    -fx-background-color: null;
+}
+
+.value-bar > .range-bar {
+    -fx-background-color: limegreen;
+}
+
+.value-bar > .low-thumb {
+    -fx-pref-width: 0;
+}
+
+.value-bar > .high-thumb {
+    -fx-pref-width: 0;
+}
+
+.value-bar > .track {
+    -fx-pref-height: 5em;
+    -fx-background-color: #333;
+}

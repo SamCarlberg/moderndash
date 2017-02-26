@@ -1,0 +1,16 @@
+@import "/edu/wpi/moderndash/main.css";
+
+.autohide-dialog-pane {
+    -fx-background-color: base;
+    -fx-border-width: 0.5em;
+    -fx-border-color: linear-gradient(to bottom, highlight, derive(darkred, -25%));
+}
+
+.autohide-dialog-title {
+    -fx-padding: 0.5em 0.5em 0.5em 0.5em;
+    -fx-font-size: 1.25em;
+}
+
+.autohide-dialog-content {
+    -fx-padding: 1em 1em 1em 1em;
+}

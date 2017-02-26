@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="400" minWidth="600"
+      prefWidth="600" prefHeight="400"
+      xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="edu.wpi.moderndash.MainWindowController"
+      stylesheets="/edu/wpi/moderndash/main.css">
+    <MenuBar>
+        <menus>
+            <Menu mnemonicParsing="false" text="File">
+                <MenuItem text="Close" onAction="#close"/>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <MenuItem text="About" onAction="#about"/>
+            </Menu>
+        </menus>
+    </MenuBar>
+    <SplitPane fx:id="splitPane" dividerPositions="0.5" orientation="VERTICAL"
+               maxHeight="Infinity" maxWidth="Infinity"
+               VBox.vgrow="ALWAYS">
+        <fx:include source="MinorSystemsPane.fxml" fx:id="systemsPane"/>
+        <fx:include source="DriveBasePane.fxml" fx:id="driveBasePane"/>
+    </SplitPane>
+    <HBox fx:id="footer" minHeight="50" prefHeight="50" maxHeight="50" styleClass="footer" alignment="CENTER_RIGHT"
+          stylesheets="/edu/wpi/moderndash/css/footer.css">
+        <properties dropTarget="true"/>
+        <padding>
+            <Insets top="5" right="5" bottom="5" left="5"/>
+        </padding>
+        <fx:include source="ConnectionIndicator.fxml"/>
+    </HBox>
+</VBox>

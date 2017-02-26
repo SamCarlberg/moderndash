@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import edu.wpi.moderndash.views.DriveBaseView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1"
+            styleClass="drive-base"
+            fx:controller="edu.wpi.moderndash.DriveBasePaneController">
+    <left>
+        <VBox fx:id="leftSideExtras"/>
+    </left>
+    <right>
+        <VBox fx:id="rightSideExtras"/>
+    </right>
+    <center>
+        <BorderPane fx:id="center">
+            <!-- Put extra stuff like motor views on the left and right -->
+            <center>
+                <DriveBaseView fx:id="driveBaseView"/>
+            </center>
+        </BorderPane>
+    </center>
+</BorderPane>

@@ -1,0 +1,6 @@
+@import "/edu/wpi/moderndash/main.css";
+
+.footer {
+    -fx-background-color: base-light;
+    -fx-min-height: 5em;
+}

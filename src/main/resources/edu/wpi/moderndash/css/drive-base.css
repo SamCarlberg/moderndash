@@ -1,0 +1,21 @@
+@import "/edu/wpi/moderndash/main.css";
+
+.drive-base-drive {
+    -fx-background-color: linear-gradient(to bottom, #444444, #222222);
+    -fx-border-color: highlight;
+    -fx-border-width: 1em;
+    -fx-max-height: 15em;
+    -fx-max-width: 15em;
+    -fx-padding: 1em 1em 1em 1em;
+    -fx-background-image: url("/edu/wpi/moderndash/Woodie_flowers.jpg");
+    -fx-background-repeat: no-repeat;
+}
+
+.drive-base-drive:hover {
+    -fx-border-color: candy;
+}
+
+.drive-base-drive:hover > * {
+    /*-fx-border-color: -candy;*/
+    -fx-text-fill: text-dark;
+}

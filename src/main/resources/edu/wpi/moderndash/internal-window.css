@@ -1,0 +1,81 @@
+/* Root */
+
+.internal-window {
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-background-radius: 0;
+    -fx-background-color: darkslategray;
+}
+
+.internal-window:focused > .title-bar {
+    /*-fx-border-color: linear-gradient(to right, #ff79aa, #b743ff);*/
+}
+
+/* Highlighting */
+
+.internal-window:highlighted > .title-bar {
+    -fx-background-color: candy;
+}
+
+.internal-window:highlighted > .title-bar > .title {
+    -fx-text-fill: black;
+}
+
+/* Title */
+
+.title-bar {
+    -fx-background-color: #333333;
+    -fx-max-height: 0pt; /* Prevent the title bar from being resized */
+}
+
+.title {
+    -fx-text-fill: white;
+    -fx-padding: 5pt 5pt 5pt 5pt;
+}
+
+/* Close button */
+
+.close-button {
+    -fx-background-radius: 0;
+    -fx-max-height: 1000em; /* Super high max height makes the button fill the height of the title bar */
+    -fx-background-color: transparent;
+    -fx-graphic: url('/edu/wpi/moderndash/close-button-16x16.png');
+}
+
+.close-button:pressed {
+    /*-fx-background-color: rgba(255, 255, 255, 0.25);*/
+}
+
+/* Content */
+
+.content {
+    -fx-background-color: darkslategray;
+    -fx-text-fill: lightgray;
+    -fx-background-radius: 0;
+}
+
+/* Menus */
+
+.context-menu {
+    -fx-background-color: #333;
+    -fx-text-fill: white;
+    -fx-border-width: 1;
+    -fx-border-color: darkslategray;
+}
+
+.menu-item {
+    -fx-background-color: transparent;
+}
+
+.menu-item > .label {
+    -fx-text-fill: white;
+    -fx-padding: 0 0 0 0;
+}
+
+.menu-item:focused {
+    -fx-background-color: #444;
+}
+
+.menu-item:focused > .label {
+    -fx-text-fill: white;
+}
