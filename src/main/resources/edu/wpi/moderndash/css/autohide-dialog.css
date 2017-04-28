@@ -3,7 +3,7 @@
 .autohide-dialog-pane {
     -fx-background-color: base;
     -fx-border-width: 0.5em;
-    -fx-border-color: linear-gradient(to bottom, highlight, derive(darkred, -25%));
+    -fx-border-color: floralwhite;
 }
 
 .autohide-dialog-title {

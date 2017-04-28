@@ -1,41 +1,46 @@
 package edu.wpi.moderndash.robot;
 
 import com.google.common.annotations.VisibleForTesting;
-
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 import edu.wpi.first.wpilibj.networktables.NetworkTableKeyNotDefined;
 import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.moderndash.Preferences;
 import edu.wpi.moderndash.concurrent.DaemonThread;
 import edu.wpi.moderndash.io.IPResolver;
-
-import java.util.Optional;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
+import edu.wpi.moderndash.property.EnumProperty;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableStringValue;
-import javafx.beans.value.ObservableValue;
-
 import lombok.NonNull;
 import lombok.extern.java.Log;
 
+import java.util.Locale;
+import java.util.Optional;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 @Log
+@Singleton
 public class FrcRobotConnection implements RobotConnection {
 
     /**
      * Connection timeout, in milliseconds. A connection normally takes 2ms-10ms to determine with a RoboRIO.
      */
     private static final int TIMEOUT = 50; // millis
+
+    /**
+     * How often we should try to ping the robot.
+     */
+    private static final int PING_PERIOD = 500; // millis
 
     private final ITable dataTable;
     private final Preferences preferences;
@@ -44,12 +49,12 @@ public class FrcRobotConnection implements RobotConnection {
     private final IntegerProperty teamNumber = new SimpleIntegerProperty(this, "team-number", 0);
     private final StringProperty robotIp = new SimpleStringProperty(this, "robot-ip", "");
     private final BooleanProperty isConnected = new SimpleBooleanProperty(this, "is-connected", false);
-    private final ObjectProperty<RobotState> robotState = new SimpleObjectProperty<>(this, "robot-state", RobotState.UNKNOWN);
-
+    private final EnumProperty<RobotState> robotState = new EnumProperty<>(this, "robot-state", RobotState.DISCONNECTED);
 
     private boolean started = false;
 
-    public FrcRobotConnection(@NonNull ITable dataTable,
+    @Inject
+    public FrcRobotConnection(@Named("RobotInfoTable") @NonNull ITable dataTable,
                               @NonNull Preferences preferences,
                               @NonNull IPResolver ipResolver) {
         this.dataTable = dataTable;
@@ -82,22 +87,20 @@ public class FrcRobotConnection implements RobotConnection {
 
     @Override
     public void start() {
-        // Try to find a connection every 500 milliseconds
+        // Periodically attempt to ping the robot
         Executors.newSingleThreadScheduledExecutor(DaemonThread::new).scheduleAtFixedRate(() -> {
-            log.info("Running connection daemon");
+            log.fine("Running connection daemon");
             boolean resolved = ipResolver.canResolve(robotIP(), TIMEOUT, TimeUnit.MILLISECONDS);
             isConnected.set(resolved);
-            if (!resolved) {
-                robotState.set(RobotState.DISCONNECTED);
-            }
-        }, 0L, 500, TimeUnit.MILLISECONDS);
+        }, 0L, PING_PERIOD, TimeUnit.MILLISECONDS);
 
         // Listen for changes to the "State" key in the RobotInfo table
         dataTable.addTableListenerEx("State", (source, key, value, isNew) -> {
             if (value instanceof String) {
                 try {
                     RobotState old = robotState();
-                    robotState.set(RobotState.valueOf((String) value));
+                    // be able to detect state regardless of
+                    robotState.set(RobotState.valueOf(((String) value).toUpperCase(Locale.ENGLISH)));
                     log.info("Robot state changed from " + old + " to " + robotState());
                 } catch (IllegalArgumentException e) {
                     log.warning("Unexpected state: " + value);
@@ -148,7 +151,7 @@ public class FrcRobotConnection implements RobotConnection {
     }
 
     @Override
-    public ObservableValue<RobotState> robotStateProperty() {
+    public EnumProperty<RobotState> robotStateProperty() {
         return robotState;
     }
 

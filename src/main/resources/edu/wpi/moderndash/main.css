@@ -8,6 +8,8 @@
 /* Global constants */
 
 * {
+    -fx-text-fill: text-light;
+    -fx-font-family: "Roboto";
     influenza: linear-gradient(to left, #C04848, #480048);
     candy: linear-gradient(to right, #49e1ff, #b743ff);
     midnight-city: linear-gradient(to left, #232526, #414345);
@@ -20,10 +22,6 @@
 }
 
 /* Global settings */
-
-* {
-    -fx-text-fill: text-light;
-}
 
 .root {
     -fx-background-color: base;
@@ -43,18 +41,6 @@
 
 .split-pane-divider:hover, .split-pane-divider:pressed {
     -fx-background-color: #b743ff;
-}
-
-/* Drive base style */
-
-.drive-base {
-    -fx-background-color: base;
-}
-
-/* Minor subsystem style */
-
-.minor-systems {
-    -fx-background-color: base;
 }
 
 /* Menu styles */
@@ -122,6 +108,13 @@
 
 /* Miscellaneous controls */
 
+
+/* TextField, TextArea */
+
+.text-field, .text-area {
+    -fx-text-fill: #111111;
+}
+
 /* Button, toggle button */
 
 .button, .toggle-button {
@@ -155,13 +148,39 @@
     -fx-background-color: wpi-red;
 }
 
-.connection-indicator {
-    -fx-background-color: firebrick;
-    -fx-background-radius: 0.5em;
-    -fx-border-color: black;
-    -fx-border-width: 0.125em;
+/* Tree table */
+
+.tree-table-view * {
+    -fx-border-color: transparent;
 }
 
-.connection-indicator:selected {
-    -fx-background-color: forestgreen;
+.column-header {
+    -fx-background-color: red;
+}
+
+.column-header-background {
+    -fx-background-color: #333333;
+}
+
+.tree-table-row-cell {
+    -fx-background-color: #111;
+    -fx-border-color: transparent;
+}
+
+.tree-table-row-cell:selected {
+    -fx-background-color: orangered;
+}
+
+.tree-table-row-cell:collapsed > .tree-disclosure-node > .arrow {
+    -fx-background-color: white;
+}
+
+/* Tiles */
+
+.tile {
+    -fx-background-color: slateblue;
+}
+
+.tile:selected {
+    -fx-background-color: orangered;
 }

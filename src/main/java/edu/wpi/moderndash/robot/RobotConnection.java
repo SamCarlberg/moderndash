@@ -1,16 +1,17 @@
 package edu.wpi.moderndash.robot;
 
+import edu.wpi.moderndash.property.EnumProperty;
+
 import java.util.Optional;
 
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableStringValue;
-import javafx.beans.value.ObservableValue;
 
 import lombok.NonNull;
 
 /**
- * Describes a connection to an FRC robot.
+ * Describes a connection to a robot.
  */
 public interface RobotConnection {
 
@@ -51,7 +52,10 @@ public interface RobotConnection {
      */
     ObservableBooleanValue isConnectedProperty();
 
-    ObservableValue<RobotState> robotStateProperty();
+    /**
+     * Gets a property describing the current state of the robot.
+     */
+    EnumProperty<RobotState> robotStateProperty();
 
     default int teamNumber() {
         return teamNumberProperty().get();

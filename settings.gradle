@@ -1,1 +1,3 @@
 rootProject.name = 'moderndash'
+include 'dsl'
+

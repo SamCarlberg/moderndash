@@ -1,5 +1,7 @@
 package edu.wpi.moderndash.io;
 
+import com.google.inject.Singleton;
+
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -13,8 +15,12 @@ import lombok.extern.java.Log;
  * Class for testing if an IP can be resolved.
  */
 @Log
+@Singleton
 public class IPResolver {
 
+    /**
+     * Are we running on a Unix system?
+     */
     private static final boolean unix;
 
     static {
@@ -37,15 +43,13 @@ public class IPResolver {
         if (timeout < 0) {
             throw new IllegalArgumentException("Timeout cannot be negative");
         }
-        boolean resolved;
+        boolean resolved = false;
         try {
             resolved = canPing(host, timeout, timeoutUnit);
         } catch (IOException e) {
-            log.log(Level.FINE, "Network error", e);
-            resolved = false;
+            log.log(Level.FINE, "Ping process failed", e);
         } catch (InterruptedException e) {
             log.log(Level.WARNING, "Interrupted while pinging " + host, e);
-            resolved = false;
         }
         return resolved;
     }

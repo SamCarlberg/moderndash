@@ -40,7 +40,7 @@ public class FrcRobotConnectionTest {
         assertFalse(connection.isConnected());
         assertEquals(0, connection.teamNumber());
         assertEquals("roborio-0-frc.local", connection.robotIP());
-        assertEquals(RobotState.UNKNOWN, connection.robotState());
+        assertEquals(RobotState.DISCONNECTED, connection.robotState());
     }
 
     @Test
@@ -74,7 +74,7 @@ public class FrcRobotConnectionTest {
 
     @Test
     public void testRobotState() throws InterruptedException {
-        assertEquals(RobotState.UNKNOWN, connection.robotState());
+        assertEquals(RobotState.DISCONNECTED, connection.robotState());
         connection.start();
         connection.setConnected(true);
         for (RobotState state : RobotState.values()) {

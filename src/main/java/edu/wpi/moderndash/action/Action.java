@@ -43,7 +43,7 @@ public interface Action {
             return NOP;
         }
         return of(() -> IntStream.range(0, amount).sequential().forEach(i -> act()),
-                  () -> IntStream.range(0, amount).sequential().forEach(i -> act())
+                  () -> IntStream.range(0, amount).sequential().forEach(i -> undo())
         );
     }
 

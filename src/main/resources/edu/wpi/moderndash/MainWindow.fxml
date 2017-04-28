@@ -4,36 +4,63 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TreeItem?>
+<?import edu.wpi.moderndash.NetworkTableEntry?>
 <?import javafx.scene.layout.VBox?>
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="400" minWidth="600"
-      prefWidth="600" prefHeight="400"
-      xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="edu.wpi.moderndash.MainWindowController"
-      stylesheets="/edu/wpi/moderndash/main.css">
-    <MenuBar>
-        <menus>
+<?import javafx.scene.control.Label?>
+<BorderPane fx:id="root" maxHeight="Infinity" maxWidth="Infinity" stylesheets="/edu/wpi/moderndash/main.css"
+            xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.wpi.moderndash.MainWindowController">
+    <top>
+        <MenuBar>
             <Menu mnemonicParsing="false" text="File">
-                <MenuItem text="Close" onAction="#close"/>
+                <MenuItem onAction="#close" text="Close"/>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
-                <MenuItem text="About" onAction="#about"/>
+                <MenuItem onAction="#about" text="About"/>
             </Menu>
-        </menus>
-    </MenuBar>
-    <SplitPane fx:id="splitPane" dividerPositions="0.5" orientation="VERTICAL"
-               maxHeight="Infinity" maxWidth="Infinity"
-               VBox.vgrow="ALWAYS">
-        <fx:include source="MinorSystemsPane.fxml" fx:id="systemsPane"/>
-        <fx:include source="DriveBasePane.fxml" fx:id="driveBasePane"/>
-    </SplitPane>
-    <HBox fx:id="footer" minHeight="50" prefHeight="50" maxHeight="50" styleClass="footer" alignment="CENTER_RIGHT"
-          stylesheets="/edu/wpi/moderndash/css/footer.css">
-        <properties dropTarget="true"/>
-        <padding>
-            <Insets top="5" right="5" bottom="5" left="5"/>
-        </padding>
-        <fx:include source="ConnectionIndicator.fxml"/>
-    </HBox>
-</VBox>
+        </MenuBar>
+    </top>
+    <center>
+        <GridPane fx:id="views" hgap="8" vgap="8">
+            <properties dropTarget="true"/>
+            <padding>
+                <Insets topRightBottomLeft="10"/>
+            </padding>
+        </GridPane>
+    </center>
+    <left>
+        <VBox>
+            <TreeTableView fx:id="networkTables" showRoot="false" prefHeight="80" prefWidth="400" VBox.vgrow="ALWAYS">
+                <placeholder>
+                    <Label text="No tables"/>
+                </placeholder>
+                <root>
+                    <TreeItem fx:id="networktableRoot" expanded="true">
+                        <value>
+                            <NetworkTableEntry key="/" value=""/>
+                        </value>
+                    </TreeItem>
+                </root>
+                <columns>
+                    <TreeTableColumn fx:id="keyColumn" editable="false" sortable="false" prefWidth="199.0" text="Name"/>
+                    <TreeTableColumn fx:id="valueColumn" editable="false" sortable="false" prefWidth="199.0" text="Value"/>
+                </columns>
+            </TreeTableView>
+        </VBox>
+    </left>
+    <bottom>
+        <HBox fx:id="footer" alignment="CENTER_RIGHT" maxHeight="50" minHeight="50" prefHeight="50" styleClass="footer"
+              stylesheets="/edu/wpi/moderndash/css/footer.css">
+            <properties dropTarget="true"/>
+            <padding>
+                <Insets bottom="5" left="5" right="5" top="5"/>
+            </padding>
+        </HBox>
+    </bottom>
+</BorderPane>

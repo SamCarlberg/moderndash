@@ -57,7 +57,7 @@ public class AutoHideDialog {
         });
 
         // Hide on focus lost
-        pane.focusedProperty().addListener((observable, wasFocused, isFocused) -> {
+        stage.focusedProperty().addListener((observable, wasFocused, isFocused) -> {
             if (!isFocused) {
                 hide();
             }
@@ -109,6 +109,7 @@ public class AutoHideDialog {
      * Attempts to show this dialog.
      */
     public void show() {
+        stage.requestFocus();
         pane.requestFocus();
         stage.show();
     }
@@ -117,6 +118,7 @@ public class AutoHideDialog {
      * Shows this dialog and blocks the calling thread until it's closed or hidden.
      */
     public void showAndWait() {
+        stage.requestFocus();
         pane.requestFocus();
         stage.showAndWait();
     }
